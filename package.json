@@ -39,9 +39,9 @@
     "@types/command-line-args": "^5.2.3"
   },
   "bin": {
-    "db-create": "bin/create",
-    "db-down": "bin/down",
-    "db-status": "bin/status",
-    "db-up": "bin/up"
+    "db-create": "bin/create.js",
+    "db-down": "bin/down.js",
+    "db-status": "bin/status.js",
+    "db-up": "bin/up.js"
   }
 }
