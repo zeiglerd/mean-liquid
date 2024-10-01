@@ -32,13 +32,11 @@
     "command-line-args": "^6.0.0",
     "dotenv": "^16.4.5",
     "mongoose": "^8.6.4",
-    "mustache": "^4.2.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
   "devDependencies": {
-    "@types/command-line-args": "^5.2.3",
-    "@types/mustache": "^4.2.5"
+    "@types/command-line-args": "^5.2.3"
   },
   "bin": {
     "db-create": "bin/create",

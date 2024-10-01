@@ -1,6 +1,5 @@
 import commandLineArgs from 'command-line-args';
 import { writeFileSync } from 'fs';
-import Mustache from 'mustache';
 
 import * as env from '../env';
 import Migration, { IMigrationDocument } from '../drivers/mongoose/models/Migration';
@@ -36,8 +35,7 @@ if (!options.names || !options.names?.length) {
 async function create(migration: IMigrationDocument) {
   try {
     const template = await templateFilepath('migration');
-    const output = Mustache.render(template.toString(), {});
-    await writeFileSync(migrationsFilepath(migration.name, migration._id), output, {});
+    await writeFileSync(migrationsFilepath(migration.name, migration._id), template, {});
   } catch (error: any) {
     throw error;
   } finally {
