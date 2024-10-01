@@ -1,0 +1,17 @@
+// https://github.com/tsconfig/bases/blob/main/bases/node18.json
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "Bundler"
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}
