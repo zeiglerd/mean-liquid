@@ -5,6 +5,7 @@
   "scripts": {
     "alpha": "npm version prerelease --preid=alpha && npm run publish-internal --tag=alpha",
     "beta": "npm version prerelease --preid=beta && npm run publish-internal --tag=beta",
+    "clean": "npm unlink mean-liquid && npm uninstall -g mean-liquid && npm uninstall mean-liquid && rm -rf node_modules && npm i",
     "major": "npm version major && npm run publish-internal",
     "minor": "npm version minor && npm run publish-internal",
     "patch": "npm version patch && npm run publish-internal",

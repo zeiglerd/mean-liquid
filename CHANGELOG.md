@@ -13,6 +13,7 @@ _Released 2024/10/TBD_
 **Added:**
 
 - A `CHANGELOG.md` file to track project changes.
+- A `clean` script in `package.json`.
 
 **Changed:**
 
