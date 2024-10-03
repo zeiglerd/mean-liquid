@@ -18,6 +18,7 @@ _Released 2024/10/TBD_
 
 - Renamed status `MIGRATED` to `APPLIED` and `MIGRATION_FAILED` to `APPLY_FAILED`.
 - Renamed the `Migration` Model property `dateMigrated` to `dateApplied`.
+- Renamed `src/bin` to `src/scripts`.
 
 
 ## 0.0.1-alpha.2

@@ -39,9 +39,9 @@
     "@types/command-line-args": "^5.2.3"
   },
   "bin": {
-    "db-create": "ts-node src/bin/create.ts",
-    "db-down": "ts-node src/bin/down.ts",
-    "db-status": "ts-node src/bin/status.ts",
-    "db-up": "ts-node src/bin/up.ts"
+    "db-create": "ts-node src/scripts/create.ts",
+    "db-down": "ts-node src/scripts/down.ts",
+    "db-status": "ts-node src/scripts/status.ts",
+    "db-up": "ts-node src/scripts/up.ts"
   }
 }
