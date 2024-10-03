@@ -8,12 +8,14 @@
 
 
 ## 0.0.1-alpha.3
-_Released 2024/10/TBD_
+_Released 2024/10/03_
 
 **Added:**
 
 - A `CHANGELOG.md` file to track project changes.
 - A `clean` script in `package.json`.
+- Notes to `README.md` outlining the temporary workaround for launching scripts.
+  - **NOTE:** This includes installing `@types/command-line-args` as a peer dev dependency.
 
 **Changed:**
 

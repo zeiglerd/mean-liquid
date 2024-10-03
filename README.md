@@ -21,14 +21,36 @@ _[Back to Top](#mean-liquid)_
 
 Install `mean-liquid` as a dev dependency:
 ```bash
-npm i -D mean-liquid
+npm i -D mean-liquid @types/command-line-args
 ```
 
-Alternatively `mean-liquid` can be installed globally:
-```bash
-npm i -g mean-liquid
-```
+**NOTE:** Ideally the **Installation** would end here, and we would run `mean-liquid` using `npx`, for example: `npx db-status`; however, it seems that feature is still a work in progress... In the meantime, we'll need to run `mean-liquid` from the `node_modules` directory, like so:
+- **db-create**: **$** `npx ts-node node_modules/mean-liquid/src/scripts/create.ts`
+- **db-down**: **$** `npx ts-node node_modules/mean-liquid/src/scripts/down.ts`
+- **db-status**: **$** `npx ts-node node_modules/mean-liquid/src/scripts/status.ts`
+- **db-up**: **$** `npx ts-node node_modules/mean-liquid/src/scripts/up.ts`
 
+It may be easier to add these scripts to your project `package.json`.
+
+**NOTE:** The rest of this `README.md` assumes you have the below `scripts` in your `package.json`:
+```json
+    ...
+    "scripts": {
+        ...
+        "db-create": "npx ts-node node_modules/mean-liquid/src/scripts/create.ts",
+        "db-down": "npx ts-node node_modules/mean-liquid/src/scripts/down.ts",
+        "db-status": "npx ts-node node_modules/mean-liquid/src/scripts/status.ts",
+        "db-up": "npx ts-node node_modules/mean-liquid/src/scripts/up.ts"
+    },
+    ...
+```
+Afterwards, the same scripts could be started like so:
+- **db-create**: **$** `npm run db-create`
+- **db-down**: **$** `npm run db-down`
+- **db-status**: **$** `npm run db-status`
+- **db-up**: **$** `npm run db-up`
+
+**NOTE:** The rest of this `README.md` assumes you have the above `scripts` in your `package.json`!
 
 ## Environment Setup
 _[Back to Top](#mean-liquid)_
@@ -52,7 +74,7 @@ _[Back to Top](#mean-liquid)_
 
 1. ### Start with the `db-create` executable to generate an empty migration file:
     - ```bash
-        npx db-create my-first-migration
+        npm run db-create my-first-migration
         ```
         - The migration filename(s) are determined by concatenating the migration name with the migration `_id`.
             - Example: `my-first-migration-66fb2159031d1f0103efac7d.ts`
@@ -109,25 +131,25 @@ _[Back to Top](#mean-liquid)_
 
 1. ### Now it's time to run the `db-up` executable:
     - ```bash
-        npx db-up my-first-migration
+        npm run db-up my-first-migration
         ```
 
 1. ### Then we can check the status of the migration is `APPLIED`:
     - First run the `db-status` executable:
         - ```bash
-            npx db-status my-first-migration
+            npm run db-status my-first-migration
             ```
     - Then check the `CHANGELOG` collection in your database, to find the migration document, and ensure the `status` is `APPLIED`.
 
 1. ### Now, if you created a `down`-grade script, run the revert with the `db-down` executable:
     - ```bash
-        npx db-down my-first-migration
+        npm run db-down my-first-migration
         ```
 
 1. ### Then we can check the status of the migration is `REVERTED`:
     - First run the `db-status` executable:
         - ```bash
-            npx db-status my-first-migration
+            npm run db-status my-first-migration
             ```
     - Then check the `CHANGELOG` collection in your database, to find the migration document, and ensure the `status` is `REVERTED`.
 
@@ -139,7 +161,7 @@ _[Back to Top](#mean-liquid)_
     - **Description:** Creates migration(s) with the `status` set to `CREATED`.
     - **Example:**
         - ```bash
-            npx db-create my-first-migration my-second-migration
+            npm run db-create my-first-migration my-second-migration
             ```
 
 - ### `db-down`
@@ -151,19 +173,19 @@ _[Back to Top](#mean-liquid)_
     - **Example:**
         - Reverts specified migration(s):
             ```bash
-            npx db-down my-first-migration my-second-migration
+            npm run db-down my-first-migration my-second-migration
             ```
         - Reverts specified migration(s) and makes them appear as if never applied:
             ```bash
-            npx db-down --reset my-first-migration my-second-migration
+            npm run db-down -- --reset my-first-migration my-second-migration
             ```
         - **WARNING:** This will attempt to revert **ALL** migrations with a `status` of `APPLIED`!!
             ```bash
-            npx db-down --all
+            npm run db-down -- --all
             ```
             - Can be combined with the `--reset` flag:
                 ```bash
-                npx db-down --reset --all
+                npm run db-down -- --reset --all
                 ```
 
 - ### `db-status`
@@ -171,11 +193,11 @@ _[Back to Top](#mean-liquid)_
     - **Example:**
         - List all migrations and their `status`:
             ```bash
-            npx db-status
+            npm run db-status
             ```
         - List specified migration(s) and their `status`:
             ```bash
-            npx db-status my-first-migration my-second-migration
+            npm run db-status my-first-migration my-second-migration
             ```
 
 - ### `db-up`
@@ -187,15 +209,15 @@ _[Back to Top](#mean-liquid)_
     - **Example:**
         - Applies specified migration(s):
             ```bash
-            npx db-up my-first-migration my-second-migration
+            npm run db-up my-first-migration my-second-migration
             ```
         - Applies specified migration(s) regardless of thier `status`:
             ```bash
-            npx db-up --force my-first-migration my-second-migration
+            npm run db-up -- --force my-first-migration my-second-migration
             ```
         - **WARNING:** This will attempt to apply **ALL** migrations with a `status` of `CREATED` or `REVERTED`!!
             ```bash
-            npx db-up --all
+            npm run db-up -- --all
             ```
 
 
