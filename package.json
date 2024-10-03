@@ -1,6 +1,6 @@
 {
   "name": "mean-liquid",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.1-alpha.3",
   "description": "Helps developers track, version, and deploy database changes.",
   "scripts": {
     "alpha": "npm version prerelease --preid=alpha && npm run publish-internal --tag=alpha",
