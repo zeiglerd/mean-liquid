@@ -39,6 +39,12 @@ DB_URI={{THIS SHOULD BE YOUR MONGODB DB_URI}}
 MIGRATIONS_DIR=migrations
 MIGRATIONS_LOG=migrations.log
 ```
+Here's what mine looks like:
+```env
+DB_URI=mongodb://localhost:27017/development
+MIGRATIONS_DIR=migrations
+MIGRATIONS_LOG=migrations.log
+```
 
 
 ## Getting Started
