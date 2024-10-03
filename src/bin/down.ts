@@ -2,7 +2,7 @@ import commandLineArgs from 'command-line-args';
 
 import {
   CREATED,
-  MIGRATED,
+  APPLIED,
   REVERTED,
   REVERT_FAILED,
 } from '../const';
@@ -30,7 +30,7 @@ if ((!options.names || !options.names?.length) && !options.all) {
 }
 
 (async () => await wrapper(async () => {
-  const query: Query = { status: MIGRATED };
+  const query: Query = { status: APPLIED };
 
   if (options.all) {
     const migrations = await Migration.find(query);
@@ -63,7 +63,7 @@ async function down(migration: IMigrationDocument) {
     }
 
     if (options.reset) {
-      migration.dateMigrated = undefined;
+      migration.dateApplied = undefined;
       migration.dateReverted = undefined;
       migration.status = CREATED;
     } else {

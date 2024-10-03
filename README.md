@@ -55,21 +55,21 @@ _[Back to Top](#mean-liquid)_
 
                 Here's an example of what a newly generated migration file looks like:
                 ```ts
-                // import models here...
+                // import or write Mongoose schemas and models here...
 
                 export async function up() {
-                    // write upgrade script here... throw Error or return false to fail migration.
+                    // write upgrade script here... throw Error or return false to fail upgrade.
                     return true;
                 }
 
                 export async function down() {
-                    // write revert script here... throw Error or return false to fail migration.
+                    // write revert script here... throw Error or return false to fail revert.
                     return true;
                 }
                 ```
 
 1. ### Using the generated migration file, and the [Mongoose] library, write an `up`-grade and a `down`-grade script.
-    - Here's an example; but, you may want to import pre-existing models/interfaces/types:
+    - Here's an example; but, you may want to import pre-existing schemas and models and/or interfaces and types:
         ```ts
         import mongoose, { Schema } from 'mongoose';
 
@@ -98,7 +98,7 @@ _[Back to Top](#mean-liquid)_
           return true;
         }
         ```
-    - _**NOTE:** At anytime during an `up`-grade or a `down`-grade, you can `throw` an `Error`; or, simply `return false`, in order to flag the migration as a failure, and set the status to `MIGRATION_FAILED`._
+    - _**NOTE:** At anytime during an `up`-grade or a `down`-grade, you can `throw` an `Error`; or, simply `return false`, to mark the `up`-grade or the `down`-grade as a failure, and set the status to `APPLY_FAILED` or `REVERT_FAILED` respectively._
     - _**NOTE:** While a `down`-grade script is not strictly mandatory it will make reverting changes significantly easier._
 
 1. ### Now it's time to run the `db-up` executable:
@@ -106,12 +106,12 @@ _[Back to Top](#mean-liquid)_
         npx db-up my-first-migration
         ```
 
-1. ### Then we can check the status of the migration is `MIGRATED`:
+1. ### Then we can check the status of the migration is `APPLIED`:
     - First run the `db-status` executable:
         - ```bash
             npx db-status my-first-migration
             ```
-    - Then check the `CHANGELOG` collection in your database, to find the migration document, and ensure the `status` is `MIGRATED`.
+    - Then check the `CHANGELOG` collection in your database, to find the migration document, and ensure the `status` is `APPLIED`.
 
 1. ### Now, if you created a `down`-grade script, run the revert with the `db-down` executable:
     - ```bash
@@ -137,10 +137,10 @@ _[Back to Top](#mean-liquid)_
             ```
 
 - ### `db-down`
-    - **Description:** Reverts migration(s) with the `status` of `MIGRATED` and updates the `status` to `REVERTED`.
+    - **Description:** Reverts migration(s) with the `status` of `APPLIED` and updates the `status` to `REVERTED`.
     - **Flags:**
-        - `all`: Reverts **ALL** migrations with the `status` of `MIGRATED`.
-        - `reset`: Makes migration(s) appear as if never applied, by deleteing the `dateMigrated` and the `dateReverted`, and changing the `status` to `CREATED`.
+        - `all`: Reverts **ALL** migrations with the `status` of `APPLIED`.
+        - `reset`: Makes migration(s) appear as if never applied, by unsetting the `dateApplied` and the `dateReverted`, and changing the `status` to `CREATED`.
             - _**NOTE:** _The `--reset` flag **can** be combined with the_ `--all` _flag._
     - **Example:**
         - Reverts specified migration(s):
@@ -151,7 +151,7 @@ _[Back to Top](#mean-liquid)_
             ```bash
             npx db-down --reset my-first-migration my-second-migration
             ```
-        - **WARNING:** This will attempt to revert **ALL** migrations with a `status` of `MIGRATED`!!
+        - **WARNING:** This will attempt to revert **ALL** migrations with a `status` of `APPLIED`!!
             ```bash
             npx db-down --all
             ```
@@ -173,7 +173,7 @@ _[Back to Top](#mean-liquid)_
             ```
 
 - ### `db-up`
-    - **Description:** Applies migration(s) with the `status` of `CREATED` or `REVERTED` and updates the `status` to `MIGRATED`.
+    - **Description:** Applies migration(s) with the `status` of `CREATED` or `REVERTED` and updates the `status` to `APPLIED`.
     - **Flags:**
         - `all`: Applies **ALL** migrations with the `status` of `CREATED` or `REVERTED`.
         - `force`: Applies migration(s) regardless of thier `status`.
@@ -197,8 +197,8 @@ _[Back to Top](#mean-liquid)_
 _[Back to Top](#mean-liquid)_
 
 - `CREATED`
-- `MIGRATED`
-- `MIGRATION_FAILED`
+- `APPLIED`
+- `APPLY_FAILED`
 - `REVERTED`
 - `REVERT_FAILED`
 

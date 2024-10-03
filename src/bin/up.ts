@@ -2,8 +2,8 @@ import commandLineArgs from 'command-line-args';
 
 import {
   CREATED,
-  MIGRATED,
-  MIGRATION_FAILED,
+  APPLIED,
+  APPLY_FAILED,
   REVERTED,
 } from '../const';
 import * as env from '../env';
@@ -64,17 +64,17 @@ async function up(migration: IMigrationDocument) {
   try {
     const { up } = await import(migrationsFilepath(migration.name, migration._id));
 
-    const migrated = await up();
+    const applied = await up();
 
-    if (!migrated) {
+    if (!applied) {
       throw Error(`Did not apply migration: ${migration.name} (${migration._id}).`);
     }
 
-    migration.dateMigrated = new Date();
-    migration.status = MIGRATED;
+    migration.dateApplied = new Date();
+    migration.status = APPLIED;
   } catch (error: any) {
     if (migration) {
-      migration.status = MIGRATION_FAILED;
+      migration.status = APPLY_FAILED;
     }
 
     throw error;

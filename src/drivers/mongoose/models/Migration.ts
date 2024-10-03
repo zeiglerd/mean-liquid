@@ -2,8 +2,8 @@ import { HydratedDocument, model, Schema } from 'mongoose';
 
 import {
   CREATED,
-  MIGRATED,
-  MIGRATION_FAILED,
+  APPLIED,
+  APPLY_FAILED,
   REVERTED,
   REVERT_FAILED,
 } from '../../../const';
@@ -13,15 +13,15 @@ export type IMigrationDocument = HydratedDocument<IMigration>;
 
 const migrationSchema = new Schema<IMigrationDocument>({
   dateCreated: { type: Date },
-  dateMigrated: { type: Date },
+  dateApplied: { type: Date },
   dateReverted: { type: Date },
   name: { required: true, type: String },
   status: {
     type: String,
     enum: [
       CREATED,
-      MIGRATED,
-      MIGRATION_FAILED,
+      APPLIED,
+      APPLY_FAILED,
       REVERTED,
       REVERT_FAILED,
     ],
